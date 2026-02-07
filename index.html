@@ -25,34 +25,34 @@
             position: relative;
         }
 
-        .slide { display: none; opacity: 0; transition: opacity 0.5s ease-in-out; }
+        .slide { display: none; opacity: 0; transition: opacity 0.5s ease; }
         .active { display: block; opacity: 1; }
 
         h2 { font-family: 'Dancing Script', cursive; color: var(--deep-rose); font-size: 1.75rem; margin: 10px 0; }
         p { color: #7d5a5a; font-size: 0.85rem; line-height: 1.5; }
 
-        /* Hidden Password Input */
         input[type="password"] { 
             padding: 15px; border-radius: 20px; border: 2px solid #ffccd5;
             width: 100%; text-align: center; font-size: 1.5rem; margin-bottom: 15px;
             color: var(--deep-rose); background: white; letter-spacing: 5px;
         }
 
-        /* Puzzle Styling */
+        /* Emoji Puzzle Grid */
         #puzzle-board {
             display: grid; grid-template-columns: repeat(2, 1fr);
-            gap: 10px; margin: 15px auto; width: 220px; height: 220px;
+            gap: 15px; margin: 20px auto; width: 220px;
         }
         .tile {
-            width: 105px; height: 105px; 
-            background-size: 210px 210px;
-            border-radius: 15px; border: 3px solid white;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-            transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            width: 100px; height: 100px; 
+            background: white; border-radius: 20px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 2.5rem; border: 3px solid #ffccd5;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
         }
-        .selected { border-color: var(--deep-rose); transform: scale(0.92); box-shadow: 0 0 15px var(--deep-rose); }
+        .selected { border-color: var(--deep-rose); transform: scale(0.9); background: #fff0f3; }
 
-        /* Buttons */
         button {
             padding: 14px; border: none; border-radius: 20px;
             background: var(--deep-rose); color: white; width: 100%;
@@ -93,17 +93,18 @@
         </div>
 
         <div id="slide3" class="slide">
-            <h2 id="puzz-head">Fix Our Memory 🧩</h2>
+            <h2 id="puzz-head">Match the Love 🧩</h2>
+            <p id="puzz-sub">Swap tiles to fix the heart!</p>
             <div id="puzzle-board"></div>
             <div id="message-area" style="display:none;">
-                <p style="color: var(--deep-rose); font-weight: 600; margin-bottom: 5px;">Today Is Propose Day ❤️🌸</p>
-                <div style="font-size: 0.8rem; line-height: 1.4; color: #555;">
+                <p style="color: var(--deep-rose); font-weight: 600;">Today Is Propose Day ❤️🌸</p>
+                <div style="font-size: 0.82rem; line-height: 1.4; color: #555;">
                     Kuch kehena tha tumse... Tum sunna chahogi kya?<br><br>
                     Zindegi ek chota sa safar ha... Tum mere sath chalna chahogi kya?<br><br>
                     Aur jab mujhe neend na ayee... Tum mujhe apni gaud me sulaayogi kya?<br><br>
                     Waise to mene chand ko samne se nehi dekha... tum mere chand banna chahogii kya?.....<br>🫶🏻🫶🏻🧿..
                 </div>
-                <button onclick="nextSlide(4)" style="background:#5a5a5a;">Continue ❤️</button>
+                <button onclick="nextSlide(4)" style="background:#5a5a5a; margin-top:15px;">Continue ❤️</button>
             </div>
         </div>
 
@@ -129,12 +130,14 @@
     </div>
 
     <script>
-        const imgUrl = "https://i.ibb.co/XktqPRdJ/image.jpg";
-        let tiles = [0, 1, 2, 3], shuffled = [1, 0, 3, 2], selectedIndex = null;
+        // Emoji set for the puzzle
+        const emojis = ["❤️", "🧿", "💍", "🌸"];
+        let shuffled = [1, 0, 3, 2]; // Initial mixed state
+        let selectedIndex = null;
 
         function checkPass() {
             if(document.getElementById('passInput').value === "120805") nextSlide(2);
-            else alert("Enter our special date... ❤️");
+            else alert("Think of our special date... ❤️");
         }
 
         function nextSlide(n) {
@@ -158,8 +161,6 @@
             const ctx = canvas.getContext('2d');
             const start = document.getElementById(fromBtnId).getBoundingClientRect();
             const end = document.getElementById('btnC').getBoundingClientRect();
-            
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
             ctx.strokeStyle = "#ff4d6d"; ctx.setLineDash([5, 5]); ctx.lineWidth = 3;
             ctx.beginPath();
             ctx.moveTo(start.left - card.left + (start.width/2), start.bottom - card.top);
@@ -167,10 +168,7 @@
             ctx.stroke();
         }
 
-        function triggerOptionC() {
-            startFlowerRain();
-            document.getElementById('next2').style.display = 'block';
-        }
+        function triggerOptionC() { startFlowerRain(); document.getElementById('next2').style.display = 'block'; }
 
         function startFlowerRain() {
             for(let i=0; i<20; i++) {
@@ -187,11 +185,10 @@
         function initPuzzle() {
             const board = document.getElementById('puzzle-board');
             board.innerHTML = '';
-            shuffled.forEach((tileNum, i) => {
+            shuffled.forEach((emojiIdx, i) => {
                 const div = document.createElement('div');
                 div.className = 'tile';
-                div.style.backgroundImage = `url('${imgUrl}')`;
-                div.style.backgroundPosition = `${(tileNum % 2) * -105}px ${Math.floor(tileNum / 2) * -105}px`;
+                div.innerHTML = emojis[emojiIdx];
                 div.onclick = () => handleTileClick(i);
                 board.appendChild(div);
             });
@@ -206,13 +203,16 @@
                 [shuffled[selectedIndex], shuffled[i]] = [shuffled[i], shuffled[selectedIndex]];
                 selectedIndex = null;
                 initPuzzle();
-                if (JSON.stringify(tiles) === JSON.stringify(shuffled)) {
-                    document.getElementById('puzzle-board').style.display = 'none';
-                    document.getElementById('puzz-head').innerText = "For You, Pukkii... ✨";
+                // Check if solved (Correct order: ❤️, 🧿, 💍, 🌸)
+                if (shuffled.join(',') === "0,1,2,3") {
+                    document.getElementById('puzzle-board').style.opacity = '0';
                     setTimeout(() => {
-                        document.getElementById('puzz-head').style.display = 'none';
+                        document.getElementById('puzzle-board').style.display = 'none';
+                        document.getElementById('puzz-head').innerText = "Fixed with Love! ✨";
+                        document.getElementById('puzz-sub').style.display = 'none';
                         document.getElementById('message-area').style.display = 'block';
-                    }, 800);
+                        startFlowerRain();
+                    }, 500);
                 }
             }
         }
