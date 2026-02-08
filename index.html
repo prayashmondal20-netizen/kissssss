@@ -3,231 +3,221 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>For My Pukkii ❤️</title>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <title>For My Pratyusha ❤️</title>
     <style>
-        :root { --soft-pink: #ffdae0; --deep-rose: #ff4d6d; --glass: rgba(255, 255, 255, 0.95); }
-        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; outline: none; }
+        :root {
+            --cadbury-purple: #380885;
+            --cadbury-gold: #e6be7e;
+            --milk-chocolate: #4b2c20;
+            --velvet-maroon: #5d001e;
+        }
+
+        body, html {
+            margin: 0; padding: 0; height: 100%;
+            background: radial-gradient(circle, #2c000e 0%, #000000 100%);
+            font-family: 'Georgia', serif;
+            display: flex; justify-content: center; align-items: center;
+            overflow: hidden; color: white; touch-action: manipulation;
+        }
+
+        /* Visible Floating Background Icons */
+        .bg-icon {
+            position: absolute; 
+            color: rgba(255, 255, 255, 0.4); /* Increased visibility */
+            font-size: 24px; z-index: -1; 
+            animation: bgFloat 10s linear infinite;
+            pointer-events: none;
+        }
+
+        @keyframes bgFloat {
+            0% { transform: translateY(110vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-15vh) rotate(360deg); opacity: 0; }
+        }
+
+        .page {
+            display: none; flex-direction: column; align-items: center;
+            text-align: center; width: 88%; max-width: 320px;
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+
+        .active { display: flex; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.98); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        /* --- Security Page --- */
+        #security-page { 
+            background: rgba(255, 255, 255, 0.98); padding: 30px 20px; border-radius: 25px; 
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6); color: var(--velvet-maroon);
+        }
+        input { 
+            padding: 12px; border: 2px solid #eee; border-radius: 50px; 
+            width: 85%; text-align: center; margin: 20px 0; outline: none; 
+            font-size: 18px; letter-spacing: 4px; background: #f9f9f9; color: var(--velvet-maroon);
+        }
+
+        /* --- Chocolate Page --- */
+        .wrapper { 
+            background: var(--cadbury-purple); padding: 15px 10px; border-radius: 12px; 
+            border: 1.5px solid var(--cadbury-gold); width: 100%;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.8);
+        }
+        .brand { color: var(--cadbury-gold); font-size: 1rem; font-weight: bold; margin-bottom: 12px; font-style: italic; }
+        .foil-tray { background: linear-gradient(135deg, #d1d1d1, #777); padding: 8px; border-radius: 6px; }
+        .bar { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; background: #23110b; padding: 6px; }
+        .slice { 
+            height: 70px; background: var(--milk-chocolate); border-radius: 5px; 
+            display: flex; justify-content: center; align-items: center; 
+            box-shadow: inset 2px 2px 4px rgba(255,255,255,0.1), 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        .slice span { color: rgba(255,255,255,0.08); font-weight: bold; font-size: 9px; }
         
-        body {
-            margin: 0; font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #fff0f3 0%, #ffdae0 100%);
-            height: 100vh; display: flex; justify-content: center; align-items: center;
-            overflow: hidden; touch-action: manipulation;
-        }
-
-        .glass-card {
-            background: var(--glass); backdrop-filter: blur(12px);
-            padding: 25px; border-radius: 30px; text-align: center;
-            width: 92%; max-width: 360px; z-index: 10;
-            border: 1px solid rgba(255, 255, 255, 0.5);
-            box-shadow: 0 10px 30px rgba(255, 77, 109, 0.15);
-            position: relative;
-        }
-
-        .slide { display: none; opacity: 0; transition: opacity 0.5s ease; }
-        .active { display: block; opacity: 1; }
-
-        h2 { font-family: 'Dancing Script', cursive; color: var(--deep-rose); font-size: 1.75rem; margin: 10px 0; }
-        p { color: #7d5a5a; font-size: 0.85rem; line-height: 1.5; }
-
-        input[type="password"] { 
-            padding: 15px; border-radius: 20px; border: 2px solid #ffccd5;
-            width: 100%; text-align: center; font-size: 1.5rem; margin-bottom: 15px;
-            color: var(--deep-rose); background: white; letter-spacing: 5px;
-        }
-
-        /* Emoji Puzzle Grid */
-        #puzzle-board {
-            display: grid; grid-template-columns: repeat(2, 1fr);
-            gap: 15px; margin: 20px auto; width: 220px;
-        }
-        .tile {
-            width: 100px; height: 100px; 
-            background: white; border-radius: 20px;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 2.5rem; border: 3px solid #ffccd5;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            cursor: pointer;
-        }
-        .selected { border-color: var(--deep-rose); transform: scale(0.9); background: #fff0f3; }
-
-        button {
-            padding: 14px; border: none; border-radius: 20px;
-            background: var(--deep-rose); color: white; width: 100%;
-            font-weight: 600; margin-top: 10px; font-size: 0.95rem;
-            box-shadow: 0 4px 12px rgba(255, 77, 109, 0.25);
-            transition: 0.3s ease;
-        }
-        .btn-small { width: 46%; font-size: 0.85rem; padding: 12px 5px; }
-        .next-btn { background: #5a5a5a !important; display: none; margin-top: 15px; }
-
-        #final-letter { max-height: 72vh; overflow-y: auto; text-align: left; padding: 5px; }
-
-        .flower { position: fixed; top: -10%; font-size: 24px; animation: fall linear forwards; z-index: 20; pointer-events: none; }
-        @keyframes fall { to { transform: translateY(110vh) rotate(360deg); } }
+        /* Slow Chocolate Eating Animation */
+        .eating-anim { animation: slowCrunch 0.9s ease-in forwards; }
         
-        @keyframes heartbeat { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.06); } }
-        .pulse { animation: heartbeat 1.5s infinite; }
+        @keyframes slowCrunch { 
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.05) rotate(3deg); }
+            100% { transform: scale(0); opacity: 0; filter: blur(5px); } 
+        }
+
+        /* --- Message Page --- */
+        #message-page {
+            background: var(--velvet-maroon); padding: 22px; border-radius: 20px;
+            border: 2px solid var(--cadbury-gold); box-shadow: 0 0 40px rgba(214, 48, 49, 0.5);
+        }
+        .note-body {
+            font-size: 0.85rem; line-height: 1.5; font-style: italic;
+            background: rgba(0,0,0,0.3); padding: 15px; border-radius: 12px; text-align: left;
+        }
+
+        .btn-gold { 
+            background: var(--cadbury-gold); color: var(--cadbury-purple); 
+            border: none; padding: 14px 32px; border-radius: 50px; 
+            cursor: pointer; font-weight: bold; margin-top: 15px; font-size: 0.9rem;
+        }
+        
+        .pop-emoji { 
+            position: absolute; pointer-events: none; z-index: 100; 
+            animation: floatUp 1.2s ease-out forwards; font-size: 2.8rem; 
+        }
+        @keyframes floatUp { 
+            0% { opacity: 1; transform: translateY(0) scale(0.5); }
+            100% { opacity: 0; transform: translateY(-140px) scale(1.3); } 
+        }
     </style>
 </head>
 <body>
 
-    <div class="glass-card" id="mainCard">
-        <canvas id="guideCanvas" style="position:absolute; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:15;"></canvas>
+    <audio id="crunchSound" src="https://assets.mixkit.co/active_storage/sfx/2305/2305-preview.mp3"></audio>
 
-        <div id="slide1" class="slide active">
-            <h2>Hush... ❤️</h2>
-            <p>A secret for my Pukkii</p>
-            <input type="password" id="passInput" inputmode="numeric" placeholder="••••••">
-            <button onclick="checkPass()">Unlock Love</button>
-        </div>
+    <div id="security-page" class="page active">
+        <h2>🔒 Private Access</h2>
+        <input type="password" id="passInput" placeholder="••••••" inputmode="numeric">
+        <button class="btn-gold" onclick="checkPass()">Unlock ❤️</button>
+    </div>
 
-        <div id="slide2" class="slide">
-            <h2>Luckiest Person?</h2>
-            <button id="btnA" onclick="drawGuideLine('btnA')">A) Me ✨</button>
-            <button id="btnB" onclick="drawGuideLine('btnB')">B) You ✨</button>
-            <button id="btnC" onclick="triggerOptionC()" style="background: #ff758c;">C) Both Of Us ✨</button>
-            <button id="next2" class="next-btn" onclick="nextSlide(3)">Continue ❤️</button>
-        </div>
+    <div id="teaser-page" class="page">
+        <h1 style="color: white; text-shadow: 0 0 10px var(--cadbury-gold); font-size: 1.2rem;">
+            I HAVE PREPARED SOMETHING FOR U 🤭😅
+        </h1>
+        <button class="btn-gold" style="background: white;" onclick="nextPage('teaser-page', 'chocolate-page')">CONTINUE 🫶🏻</button>
+    </div>
 
-        <div id="slide3" class="slide">
-            <h2 id="puzz-head">Match the Love 🧩</h2>
-            <p id="puzz-sub">Swap tiles to fix the heart!</p>
-            <div id="puzzle-board"></div>
-            <div id="message-area" style="display:none;">
-                <p style="color: var(--deep-rose); font-weight: 600;">Today Is Propose Day ❤️🌸</p>
-                <div style="font-size: 0.82rem; line-height: 1.4; color: #555;">
-                    Kuch kehena tha tumse... Tum sunna chahogi kya?<br><br>
-                    Zindegi ek chota sa safar ha... Tum mere sath chalna chahogi kya?<br><br>
-                    Aur jab mujhe neend na ayee... Tum mujhe apni gaud me sulaayogi kya?<br><br>
-                    Waise to mene chand ko samne se nehi dekha... tum mere chand banna chahogii kya?.....<br>🫶🏻🫶🏻🧿..
+    <div id="chocolate-page" class="page">
+        <div class="wrapper">
+            <div class="brand">Pratyusha's Special 🍫</div>
+            <div class="foil-tray">
+                <div class="bar">
+                    <div class="slice"><span>LOVE</span></div>
+                    <div class="slice"><span>LOVE</span></div>
+                    <div class="slice"><span>LOVE</span></div>
+                    <div class="slice"><span>LOVE</span></div>
+                    <div class="slice"><span>LOVE</span></div>
+                    <div class="slice"><span>LOVE</span></div>
                 </div>
-                <button onclick="nextSlide(4)" style="background:#5a5a5a; margin-top:15px;">Continue ❤️</button>
             </div>
         </div>
+        <button class="btn-gold" id="eatBtn" onclick="startEating()">Eat Chocolate ❤️</button>
+    </div>
 
-        <div id="slide4" class="slide">
-            <h2 style="font-size: 1.3rem;">"Will you hold my hand today and always, and be my forever?" 💍❤️</h2>
-            <div style="display: flex; justify-content: space-around; margin-top: 20px;">
-                <button class="btn-yes btn-small pulse" onclick="finalYes()">YES 🧿</button>
-                <button id="noBtn" class="btn-small" style="background:#8e9aaf;" onmouseover="moveNo()" onclick="moveNo()">NO 🥺</button>
-            </div>
+    <div id="message-page" class="page">
+        <div style="color: var(--cadbury-gold); font-size: 0.9rem; font-weight: bold; margin-bottom: 12px;">HAPPY CHOCOLATE DAY MY PRATYUSHA 🫶🏻🧿</div>
+        <div class="note-body">
+            Just like Chocolate, You make My life sweeter in ways I can’t explain.<br><br>
+            Every smile of yours melts my worries,<br>
+            Every word of yours feels like comfort,<br>
+            Every glance, Every thought of yours gives me peace...<br><br>
+            If love had a flavor, it would taste like <b>"You"</b>.<br><br>
+            Today, tomorrow, always…<br>
+            You’re my favorite sweetness, my one and only Pratyusha.
+            <div style="font-size: 18px; margin-top: 12px; text-align: center; letter-spacing: 5px;">🧿🧿🧿🧿🧿</div>
         </div>
-
-        <div id="slide5" class="slide">
-            <div id="final-letter">
-                <h2 style="text-align: center; font-size: 1.8rem;">I Love You Pratyusha ❤️</h2>
-                <p style="text-align: center; font-style: italic; margin-top: -8px;">(My Pukkii / My Wifeee)</p>
-                <hr style="border: 0; border-top: 1px solid #ffccd5; margin: 10px 0;">
-                <p><b>I don’t promise a perfect life, but I promise a real one --> full of care, respect, and endless love..</b></p>
-                <p>I love U Every second, Every Minute, Every hour, Every day, Every Night, Every Month, Every Year And Upcoming Year, Every Season... 🧿</p>
-                <div style="text-align: center; font-size: 1.2rem; margin:10px 0;">❤️❤️🧿🫶🏻🧿❤️❤️</div>
-                <h2 style="text-align: center; font-size: 1.1rem; color: #e63946;">Our Forever Starts Now! ♾️</h2>
-            </div>
-        </div>
+        <button class="btn-gold" onclick="location.reload()">Refill Love 🔄</button>
     </div>
 
     <script>
-        // Emoji set for the puzzle
-        const emojis = ["❤️", "🧿", "💍", "🌸"];
-        let shuffled = [1, 0, 3, 2]; // Initial mixed state
-        let selectedIndex = null;
+        // Visible Background Icons (Hearts and Chocolates)
+        function initBg() {
+            const icons = ['💓', '🍫', '🍫', '💓', '💓', '🍫']; 
+            for(let i=0; i<25; i++) { // Increased density
+                let div = document.createElement('div');
+                div.className = 'bg-icon';
+                div.innerHTML = icons[Math.floor(Math.random()*icons.length)];
+                div.style.left = Math.random() * 100 + 'vw';
+                div.style.animationDuration = (Math.random() * 5 + 7) + 's';
+                div.style.animationDelay = (Math.random() * 8) + 's';
+                document.body.appendChild(div);
+            }
+        }
+        initBg();
 
         function checkPass() {
-            if(document.getElementById('passInput').value === "120805") nextSlide(2);
-            else alert("Think of our special date... ❤️");
-        }
-
-        function nextSlide(n) {
-            clearCanvas();
-            document.querySelectorAll('.slide').forEach(s => { s.classList.remove('active'); s.style.display = 'none'; });
-            const next = document.getElementById('slide' + n);
-            next.style.display = 'block';
-            setTimeout(() => next.classList.add('active'), 50);
-            if(n === 3) initPuzzle();
-        }
-
-        function clearCanvas() {
-            const canvas = document.getElementById('guideCanvas');
-            canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
-        }
-
-        function drawGuideLine(fromBtnId) {
-            const canvas = document.getElementById('guideCanvas');
-            const card = document.getElementById('mainCard').getBoundingClientRect();
-            canvas.width = card.width; canvas.height = card.height;
-            const ctx = canvas.getContext('2d');
-            const start = document.getElementById(fromBtnId).getBoundingClientRect();
-            const end = document.getElementById('btnC').getBoundingClientRect();
-            ctx.strokeStyle = "#ff4d6d"; ctx.setLineDash([5, 5]); ctx.lineWidth = 3;
-            ctx.beginPath();
-            ctx.moveTo(start.left - card.left + (start.width/2), start.bottom - card.top);
-            ctx.quadraticCurveTo(card.width, (start.bottom + end.top)/2 - card.top, end.left - card.left + (end.width/2), end.top - card.top);
-            ctx.stroke();
-        }
-
-        function triggerOptionC() { startFlowerRain(); document.getElementById('next2').style.display = 'block'; }
-
-        function startFlowerRain() {
-            for(let i=0; i<20; i++) {
-                setTimeout(() => {
-                    const f = document.createElement('div');
-                    f.className = 'flower'; f.innerHTML = '🌸';
-                    f.style.left = Math.random() * 100 + 'vw';
-                    f.style.animationDuration = (Math.random() * 2 + 3) + 's';
-                    document.body.appendChild(f);
-                }, i * 150);
-            }
-        }
-
-        function initPuzzle() {
-            const board = document.getElementById('puzzle-board');
-            board.innerHTML = '';
-            shuffled.forEach((emojiIdx, i) => {
-                const div = document.createElement('div');
-                div.className = 'tile';
-                div.innerHTML = emojis[emojiIdx];
-                div.onclick = () => handleTileClick(i);
-                board.appendChild(div);
-            });
-        }
-
-        function handleTileClick(i) {
-            const allTiles = document.querySelectorAll('.tile');
-            if (selectedIndex === null) {
-                selectedIndex = i;
-                allTiles[i].classList.add('selected');
+            if(document.getElementById('passInput').value === '120805') {
+                nextPage('security-page', 'teaser-page');
             } else {
-                [shuffled[selectedIndex], shuffled[i]] = [shuffled[i], shuffled[selectedIndex]];
-                selectedIndex = null;
-                initPuzzle();
-                // Check if solved (Correct order: ❤️, 🧿, 💍, 🌸)
-                if (shuffled.join(',') === "0,1,2,3") {
-                    document.getElementById('puzzle-board').style.opacity = '0';
-                    setTimeout(() => {
-                        document.getElementById('puzzle-board').style.display = 'none';
-                        document.getElementById('puzz-head').innerText = "Fixed with Love! ✨";
-                        document.getElementById('puzz-sub').style.display = 'none';
-                        document.getElementById('message-area').style.display = 'block';
-                        startFlowerRain();
-                    }, 500);
-                }
+                alert("Incorrect Password! 🧿");
             }
         }
 
-        function moveNo() {
-            const btn = document.getElementById('noBtn');
-            btn.style.position = 'fixed';
-            btn.style.left = Math.random() * (window.innerWidth - 80) + 'px';
-            btn.style.top = Math.random() * (window.innerHeight - 40) + 'px';
+        function nextPage(curr, next) {
+            document.getElementById(curr).classList.remove('active');
+            document.getElementById(next).classList.add('active');
         }
 
-        function finalYes() {
-            nextSlide(5);
-            startFlowerRain();
-            document.body.style.background = "#ffccd5";
+        function spawnPop(x, y, emoji) {
+            const el = document.createElement('div');
+            el.innerHTML = emoji;
+            el.className = 'pop-emoji';
+            el.style.left = x + 'px'; el.style.top = y + 'px';
+            document.body.appendChild(el);
+            setTimeout(() => el.remove(), 1200);
+        }
+
+        async function startEating() {
+            const slices = document.querySelectorAll('.slice');
+            const emojis = ['💓', '🧿', '✨', '♾️', '💓', '🫶🏻'];
+            const sound = document.getElementById('crunchSound');
+            
+            document.getElementById('eatBtn').style.visibility = 'hidden';
+
+            for (let i = 0; i < slices.length; i++) {
+                // Slower eating logic (900ms delay)
+                await new Promise(r => setTimeout(r, 900)); 
+                
+                sound.currentTime = 0;
+                sound.play().catch(() => {});
+                
+                const rect = slices[i].getBoundingClientRect();
+                spawnPop(rect.left + rect.width/4, rect.top, emojis[i]);
+                slices[i].classList.add('eating-anim');
+            }
+
+            setTimeout(() => { nextPage('chocolate-page', 'message-page'); }, 1200);
         }
     </script>
 </body>
